@@ -3,14 +3,18 @@ package academy.learnprogramming;
 import java.util.ArrayList;
 
 public class GroceryList {
-    private ArrayList<String> groceryList = new ArrayList<>();
+    private ArrayList<String> groceryList = new ArrayList<String>();
 
-    public static void main(String[] args) {
-
-    }
+//    public static void main(String[] args) {
+//
+//    }
 
     public void addGroceryItem(String item) {
         groceryList.add(item);
+    }
+
+    public ArrayList<String> getGroceryList() {
+        return groceryList;
     }
 
     public void printGroceryList() {
@@ -20,24 +24,32 @@ public class GroceryList {
         }
     }
 
-    public void modifyGroceryItem(int position, String newItem) {
+    public void modifyGroceryItem(String item, String newItem) {
+        int position = findItem(item);
+        if(position >= 0) {
+            modifyGroceryItem(position, newItem);
+        }
+    }
+    private void modifyGroceryItem(int position, String newItem) {
         groceryList.set(position, newItem);
         System.out.println("Grocery item #" + (position + 1) + " has been modified.");
     }
 
-    public void removeGroceryItem(int position) {
+    public void removeGroceryItem(String item) {
+        int position = findItem(item);
+        if(position >= 0) {
+            removeGroceryItem(position);
+        }
+    }
+    private void removeGroceryItem(int position) {
         String theItem = groceryList.get(position);
         System.out.println(theItem + " is being removed...");
         groceryList.remove(position);
         System.out.println("Grocery item #" + (position + 1) + " has been removed.");
     }
 
-    public String findItem(String searchItem) {
-//        boolean exists = groceryList.contains(searchItem);
-        int position = groceryList.indexOf(searchItem);
-        if(position >= 0) {
-            return groceryList.get(position) + " exists in the grocery list" + "at #" + position;
-        }
-        return null;
+    public int findItem(String searchItem) {
+//        System.out.println(groceryList.indexOf(searchItem));
+        return groceryList.indexOf(searchItem);
     }
 }
